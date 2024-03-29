@@ -21,18 +21,18 @@ while True:
     description = input("Введите задачу или 'стоп' для завершения: ")
     if description.lower() == 'стоп':
         break
-    deadline = input("Введите дедлайн задачи: ")
+    deadline = input("Введите время выполнения задачи: ")
     tasks.append(Task(description, deadline))
 
 print_tasks(tasks)
 
 while True:
-    mark_done = input("Введите номер задачи, чтобы отметить ее как выполненную, 'стоп' для завершения, или 'добавить' для добавления задачи в список: ")
+    mark_done = input("Введите номер задачи, чтобы отметить ее как выполненную;   'стоп' для завершения;   или 'добавить' для добавления новой задачи в список: ")
     if mark_done.lower() == 'стоп':
         break
     elif mark_done.lower() == 'добавить':
         description = input("Введите новую задачу: ")
-        deadline = input("Введите дедлайн новой задачи: ")
+        deadline = input("Введите время выполнения новой задачи: ")
         tasks.append(Task(description, deadline))
         print_tasks(tasks)
     elif mark_done.isdigit() and 1 <= int(mark_done) <= len(tasks):
