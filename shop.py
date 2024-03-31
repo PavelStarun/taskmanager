@@ -30,7 +30,7 @@ shops = {
     "2": Store("evroopt", "Минск, Независимости 195"),
     "3": Store("evroopt", "Минск, Толстого 10"),
     "4": Store("evroopt", "Минск, Дзержинского 17"),
-    "5": Store("evroopt", "Брест, Гогаля 84")
+    "5": Store("evroopt", "Брест, Гоголя 84")
 }
 
 while True:
@@ -107,7 +107,7 @@ while True:
         elif number_shop in shops:
             price = shops[number_shop].get_price(product_name)
             if price is not None:
-                print(f"В магазине '{shops[number_shop].name}', по адресу '{shops[number_shop].address}', цена продукта '{product_name}': {price}")
+                print(f"В магазине '{shops[number_shop].name}' по адресу '{shops[number_shop].address}', цена продукта '{product_name}': {price}")
             else:
                 print(f"Продукт '{product_name}' не найден в магазине {shops[number_shop].name}.")
 
