@@ -7,10 +7,6 @@ class Store:
     def add_product(self, product, price):
         self.items[product] = price
 
-    def del_product(self, product):
-        if product in self.items:
-            del self.items[product]
-
     def remove_product(self, product):
         if product in self.items:
             del self.items[product]
@@ -18,9 +14,9 @@ class Store:
     def get_price(self, product):
         return self.items.get(product, None)
 
-    def update_price(self, product, price):
+    def update_price(self, product, new_price):
         if product in self.items:
-            self.items[product] = price
+            self.items[product] = new_price
 
 
     def list_products(self):
@@ -37,32 +33,56 @@ shops = {
 }
 
 while True:
-    print("Список магазинов")
-    for shop_key in shops:
-        print(f"{shop_key}: {shops[shop_key].name}, {shops[shop_key].address}")
-    print("6: Во все магазины")
-
-    magaz = input("Введите № магазина или 'стоп' чтобы закончить: ")
-    if magaz.lower() == 'стоп':
+    action = input("Выберите действия и пропишите его: добавить, удалить 'товар'; или узнать, поменять 'цену' на товар - ")
+    if action == 'стоп':
         break
+        
+    if action.lower() == 'добавить':
+        print("Список магазинов")
+        for shop_key in shops:
+            print(f"{shop_key}: {shops[shop_key].name}, {shops[shop_key].address}")
+        print("6: Во все магазины")
 
-    if magaz in shops or magaz == '6':
-        product = input("Введите название продукта: ")
-        price = input("Введите цену продукта: ")
+        number_shop = input("Введите № магазина или 'стоп' чтобы закончить: ")
+        if number_shop.lower() == 'стоп':
+            break
 
-        if magaz == '6':
-            for shop in shops.values():
-                shop.add_product(product, price)
-            print("Товар добавлен во все магазины.")
+        if number_shop in shops or number_shop == '6':
+            product = input("Введите название продукта: ")
+            price = input("Введите цену продукта: ")
+
+            if number_shop == '6':
+                for shop in shops.values():
+                    shop.add_product(product, price)
+                print("Товар добавлен во все магазины.")
+            else:
+                shops[number_shop].add_product(product, price)
+                print(f"Товар добавлен в {shops[number_shop].name}, по адресу {shops[number_shop].address}.")
         else:
-            shops[magaz].add_product(product, price)
-            print(f"Товар добавлен в {shops[magaz].name}, адрес {shops[magaz].address}.")
-    else:
-        print("Неверный выбор, попробуйте снова.")
+            print("Неверный выбор, попробуйте снова.")
 
+    elif action.lower() == 'удалить':
+        print("Список магазинов")
+        for shop_key in shops:
+            print(f"{shop_key}: {shops[shop_key].name}, {shops[shop_key].address}")
+        print("6: Из всех магазинов")
+        del_produkt = input("Введите № магазина или 'стоп' чтобы закончить: ")
+        if del_produkt.lower() == 'стоп':
+            break
+        if del_produkt in shops or del_produkt == '6':
+            product = input("Введите название продукта для удаления: ")
 
+            if del_produkt == '6':
+                for shop in shops.values():
+                    shop.del_product(product)
+                print("Товар удален со всех магазинов.")
+            else:
+                shops[number_shop].add_product(product, price)
+                print(f"Товар удален из {shops[number_shop].name}, по адресу {shops[number_shop].address}.")
+        else:
+            print("Неверный выбор, попробуйте снова.")
 
-
+    if action == 'узнать':
 
 
 
