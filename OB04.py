@@ -1,15 +1,3 @@
-#1. Создайте базовый класс `Animal`, который будет содержать общие атрибуты (например, `name`, `age`) и методы (`make_sound()`, `eat()`) для всех животных.
-#2. Реализуйте наследование, создав подклассы `Bird`, `Mammal`, и `Reptile`, которые наследуют от класса `Animal`.
-# Добавьте специфические атрибуты и переопределите методы, если требуется (например, различный звук для `make_sound()`).
-#3. Продемонстрируйте полиморфизм: создайте функцию `animal_sound(animals)`, которая принимает список животных и вызывает метод `make_sound()` для каждого животного.
-#4. Используйте композицию для создания класса `Zoo`, который будет содержать информацию о животных и сотрудниках.
-# Должны быть методы для добавления животных и сотрудников в зоопарк.
-#5. Создайте классы для сотрудников, например, `ZooKeeper`, `Veterinarian`, которые могут иметь специфические методы
-# (например, `feed_animal()` для `ZooKeeper` и `heal_animal()` для `Veterinarian`).
-#Дополнительно:
-#Попробуйте добавить дополнительные функции в вашу программу, такие как сохранение информации о зоопарке в файл и возможность её загрузки,
-# чтобы у вашего зоопарка было "постоянное состояние" между запусками программы.
-
 class Animal():
     def __init__(self, name, age):
         self.name = name
@@ -19,34 +7,125 @@ class Animal():
         print("Звуки животных")
 
     def eat(self):
-        pass
+        print("Еда животных")
 
 
 class Bird(Animal):
-    def __init__(self, peacock):
-        self.peacock = peacock
-
+    def eat(self):
+        print("Птицы в основном питаются личинками и червяками")
     def make_sound(self):
-        print("мяукают")
+        print("В языке птиц насчитываются десятки звуковых сигналов (бедствия, предостережения, пищевые, ухаживания, спаривания, агрессивные, стайные, гнездовые и т. д.)")
 
 class Mammal(Animal):
-    def __init__(self, vulture):
-        self.vulture = vulture
+
+    def eat(self):
+        print("Млекопитающие в основном растительноядные и плотоядные")
 
     def make_sound(self):
-        print("хрипит")
+        print("Могут издавать разные звуки")
 
 class Reptile(Animal):
-    def __init__(self, turtle):
-        self.turtle = turtle
+    def eat(self):
+        print("Рептилии в основном плотоядные")
 
     def make_sound(self):
-        print("свистят")
+        print("Рептилии в основном издают звуки шипения или свист")
 
 
-animals = [Bird(), Mammal(), Reptile()]
-for animal in animals:
-    animal.make_sound()
+
+def animal_sound(animals):
+    for animal in animals:
+        animal.make_sound()
 
 
+def animal_eat(animals):
+    for animal in animals:
+        animal.eat()
+
+
+class Zoo():
+    def __init__(self):
+        self.animals = []
+        self.zookeepers = []
+        self.veterinarians = []
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def add_zookeeper(self, zookeeper):
+        self.zookeepers.append(zookeeper)
+
+    def add_veterinarian(self, veterinarian):
+        self.veterinarians.append(veterinarian)
+
+    def list_animals(self):
+        for animal in self.animals:
+            print(animal)
+
+    def list_zookeepers(self):
+        for zookeeper in self.zookeepers:
+            print(zookeeper)
+
+    def list_veterinarians(self):
+        for veterinarian in self.veterinarians:
+            print(veterinarian)
+
+
+    def info_zoo(self):
+        info = "Животные в зоопарке:\n"
+        for animal in self.animals:
+            info += f" - {type(animal).__name__}: {animal.name}, {animal.age} лет\n"
+        info += "\nСотрудники зоопарка:\n"
+        for zookeeper in self.zookeepers:
+            info += f" - {type(zookeeper).__name__}: {zookeeper.name}, {zookeeper.age} лет, {zookeeper.post}\n"
+        for veterinarian in self.veterinarians:
+            info += f" - {type(veterinarian).__name__}: {veterinarian.name}, {veterinarian.age} лет\n"
+        return info
+
+    def save_info_to_file(self, filename):
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(self.info_zoo())
+
+    def load_info_from_file(self, filename):
+        with open(filename, 'r', encoding='utf-8') as file:
+            print(file.read())
+
+
+class ZooKeeper(Zoo):
+    def __init__(self, name, age, post):
+        self.name = name
+        self.age = age
+        self.post = post
+
+    def feed_animal(self, animal):
+        print(f"{self.name} cмотрит {animal}")
+
+
+class Veterinarian(Zoo):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def heal_animal(self, animal):
+        print(f"{self.name} лечит {animal}")
+
+
+
+
+zoo = Zoo()
+zoo.add_animal(Bird("Павлин", 2))
+zoo.add_animal(Mammal("Медведь", 5))
+zoo.add_animal(Reptile("Змея", 3))
+zoo.add_zookeeper(ZooKeeper("Артем", 45, "Менеджер"))
+zoo.add_veterinarian(Veterinarian("Виктор", 35))
+zoo.add_animal(Bird("Попугая 'Гоша'", 4))
+zoo.add_animal(Mammal("Лев", 7))
+zoo.add_animal(Reptile("Кролик 'Белый'", 2))
+zoo.add_veterinarian(Veterinarian("Антон", 40))
+zoo.add_zookeeper(ZooKeeper("Василий", 55, "Директор"))
+
+print(zoo.info_zoo())
+
+zoo.save_info_to_file('zoo_info.txt')
+
+zoo.load_info_from_file('zoo_info.txt')
 
