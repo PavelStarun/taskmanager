@@ -18,9 +18,6 @@ class Monster():
     def __init__(self, name):
         self.name = name
 
-    def die(self):
-        print("Монстр побежден!")
-
 
 class Weapon(ABC):
     @abstractmethod
@@ -38,7 +35,7 @@ class Sword(Weapon):
 class Bow(Weapon):
     def attack(self, monster):
         print("Боец выбирает лук.")
-        print("Боец наносит удар из лука.")
+        print("Боец выстрел из лука.")
         return FighterWins()
 
 
