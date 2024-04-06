@@ -86,6 +86,7 @@ class Zoo():
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(self.info_zoo())
 
+
     def load_info_from_file(self, filename):
         with open(filename, 'r', encoding='utf-8') as file:
             print(file.read())
@@ -123,7 +124,7 @@ zoo.add_animal(Reptile("Кролик 'Белый'", 2))
 zoo.add_veterinarian(Veterinarian("Антон", 40))
 zoo.add_zookeeper(ZooKeeper("Василий", 55, "Директор"))
 
-print(zoo.info_zoo())
+zoo.info_zoo()
 
 zoo.save_info_to_file('zoo_info.txt')
 
